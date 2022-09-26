@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 holidayapi_rust = "0.1.0"
+confy = "0.5.0"
