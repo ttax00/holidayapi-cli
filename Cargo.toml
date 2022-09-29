@@ -7,5 +7,7 @@ edition = "2021"
 
 [dependencies]
 holidayapi_rust = "0.1.0"
-quit = "1.1.4"
 confy = "0.5.0"
+serde = "1.0.145"
+anyhow = "1.0.65"
+clap = { version = "3.2.22", features = ["derive"] }
