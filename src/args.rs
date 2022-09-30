@@ -16,51 +16,53 @@ pub enum HolidaySubcommand {
 
 #[derive(Debug, Args)]
 pub struct KeyArgs {
-    #[arg(short, long, value_name = "key")]
-    key: Option<String>,
+    #[arg(short, long, value_name = "key", default_value = None)]
+    pub key: Option<String>,
 }
 
 #[derive(Debug, Args)]
 pub struct HolidaysArgs {
+    /// A temporary API key, won't be save to config, and overrides config for this request.  
+    pub key: Option<String>,
     /// year in ISO 8601 format.
     #[arg(short, long, value_name = "year")]
-    year: i32,
+    pub year: i32,
     /// 1 or 2 digit month (1-12).
     #[arg(short, long, value_name = "1-12")]
-    month: Option<i32>,
+    pub month: Option<i32>,
     /// 1 or 2 digit day (1-31 depending on the month).
     #[arg(short, long, value_name = "1-31", requires = "month")]
-    day: Option<i32>,
+    pub day: Option<i32>,
 
     /// Return only public holidays.
     #[arg(long, action = clap::ArgAction::SetTrue)]
-    public: bool,
+    pub public: bool,
 
     /// Return state / province holidays alongside countrywide holidays.
     #[arg(short, long, action = clap::ArgAction::SetTrue)]
-    subdivisions: bool,
+    pub subdivisions: bool,
 
     /// Search holidays by name. Minimum 5 characters.
     #[arg(long)]
-    search: Option<String>,
+    pub search: Option<String>,
 
     /// ISO 639-1 format (with exceptions).
     #[arg(long)]
-    language: Option<String>,
+    pub language: Option<String>,
 
     /// Return the first day of holidays that occur before the specific date.
     #[arg(long, requires_all = &["month", "day"], conflicts_with = "upcoming", action = clap::ArgAction::SetTrue)]
-    previous: bool,
+    pub previous: bool,
 
     /// Return the first day of holidays that occur after the specific date.
     #[arg(long, requires_all = &["month", "day"], conflicts_with = "previous", action = clap::ArgAction::SetTrue)]
-    upcoming: bool,
+    pub upcoming: bool,
 
     /// Response format (csv, json, php, tsv, yaml and xml). Defaults to JSON.
     #[arg(short, long, default_value_t = {"json".to_string()})]
-    format: String,
+    pub format: String,
 
     /// Prettifies results to be more human-readable.
     #[arg(short, long, action = clap::ArgAction::SetTrue)]
-    pretty: bool,
+    pub pretty: bool,
 }

@@ -1,6 +1,7 @@
 {
 	"cSpell.words": [
-		"aadb"
+		"aadb",
+		"confy"
 	],
 	"[rust]": {
         "editor.defaultFormatter": "rust-lang.rust-analyzer", // Makes the magic
