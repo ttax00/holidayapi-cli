@@ -33,12 +33,12 @@ pub struct HolidaysArgs {
     day: Option<i32>,
 
     /// Return only public holidays.
-    #[arg(long)]
-    public: Option<bool>,
+    #[arg(long, action = clap::ArgAction::SetTrue)]
+    public: bool,
 
     /// Return state / province holidays alongside countrywide holidays.
-    #[arg(short, long)]
-    subdivisions: Option<bool>,
+    #[arg(short, long, action = clap::ArgAction::SetTrue)]
+    subdivisions: bool,
 
     /// Search holidays by name. Minimum 5 characters.
     #[arg(long)]
@@ -49,18 +49,18 @@ pub struct HolidaysArgs {
     language: Option<String>,
 
     /// Return the first day of holidays that occur before the specific date.
-    #[arg(long, requires_all = &["month", "day"], conflicts_with = "upcoming")]
-    previous: Option<bool>,
+    #[arg(long, requires_all = &["month", "day"], conflicts_with = "upcoming", action = clap::ArgAction::SetTrue)]
+    previous: bool,
 
     /// Return the first day of holidays that occur after the specific date.
-    #[arg(long, requires_all = &["month", "day"], conflicts_with = "previous")]
-    upcoming: Option<bool>,
+    #[arg(long, requires_all = &["month", "day"], conflicts_with = "previous", action = clap::ArgAction::SetTrue)]
+    upcoming: bool,
 
     /// Response format (csv, json, php, tsv, yaml and xml). Defaults to JSON.
-    #[arg(short, long)]
-    format: Option<String>,
+    #[arg(short, long, default_value_t = {"json".to_string()})]
+    format: String,
 
     /// Prettifies results to be more human-readable.
-    #[arg(short, long)]
-    pretty: Option<bool>,
+    #[arg(short, long, action = clap::ArgAction::SetTrue)]
+    pretty: bool,
 }
