@@ -24,9 +24,17 @@ pub struct KeyArgs {
 pub struct HolidaysArgs {
     /// A temporary API key, won't be save to config, and overrides config for this request.  
     pub key: Option<String>,
+    /// For countries, ISO 3166-1 alpha-2 or ISO 3166-1 alpha-3 format.
+    ///
+    /// For states / provinces (with our States & Provinces plan), ISO 3166-2 format.
+    ///
+    /// Accepts up to 10 comma separated values.
+    #[arg(short, long)]
+    pub country: String,
     /// year in ISO 8601 format.
-    #[arg(short, long, value_name = "year")]
+    #[arg(short, long)]
     pub year: i32,
+
     /// 1 or 2 digit month (1-12).
     #[arg(short, long, value_name = "1-12")]
     pub month: Option<i32>,
