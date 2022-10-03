@@ -13,6 +13,7 @@ pub enum SubCommand {
     Key(KeyArgs),
     Holiday(HolidaysArgs),
     Country(CountriesArgs),
+    Languages(LanguagesArgs),
 }
 
 #[derive(Debug, Args)]
@@ -95,7 +96,30 @@ pub struct CountriesArgs {
     #[arg(long, action = clap::ArgAction::SetTrue)]
     pub public: bool,
 
-    /// Response format (csv, json, php, tsv, yaml and xml). Defaults to JSON.
+    /// Response format (csv, json, php, tsv, yaml and xml).
+    #[arg(short, long, default_value_t = {"json".to_string()})]
+    pub format: String,
+
+    /// Prettifies results to be more human-readable.
+    #[arg(short, long, action = clap::ArgAction::SetTrue)]
+    pub pretty: bool,
+}
+
+#[derive(Debug, Args)]
+pub struct LanguagesArgs {
+    /// A temporary API key, won't be save to config, and overrides config for this request.  
+    #[arg(short, long)]
+    pub key: Option<String>,
+
+    /// Return only the language with the specified code.
+    #[arg(short, long)]
+    pub language: Option<String>,
+
+    /// Search languages by code and name. Minimum 2 characters.
+    #[arg(short, long)]
+    pub search: Option<String>,
+
+    /// Response format (csv, json, php, tsv, yaml and xml).
     #[arg(short, long, default_value_t = {"json".to_string()})]
     pub format: String,
 

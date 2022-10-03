@@ -1,6 +1,6 @@
 mod args;
 
-use args::{CountriesArgs, HolidayArgs};
+use args::{CountriesArgs, HolidayArgs, LanguagesArgs};
 use args::{HolidaysArgs, KeyArgs, SubCommand};
 use clap::Parser;
 use holidayapi_rust::HolidayAPI;
@@ -18,17 +18,16 @@ impl ::std::default::Default for MyConfig {
         Self { api_key: None }
     }
 }
-/// Testing about
 #[tokio::main]
 async fn main() {
     let args = HolidayArgs::parse();
     let cfg = confy::load::<MyConfig>(APP_NAME, None).expect("Config file didn't load properly:");
 
-    dbg!(&args);
     match args.command {
         SubCommand::Key(cmd) => handle_key_cmd(cmd, cfg),
         SubCommand::Holiday(cmd) => handle_holidays_cmd(cmd, cfg).await,
         SubCommand::Country(cmd) => handle_countries_cmd(cmd, cfg).await,
+        SubCommand::Languages(cmd) => handle_languages_cmd(cmd, cfg).await,
     }
 }
 fn is_valid_key(key: &str) {
@@ -41,7 +40,7 @@ fn is_valid_key(key: &str) {
 
 async fn handle_holidays_cmd(cmd: HolidaysArgs, cfg: MyConfig) {
     no_key_provided(cfg.api_key == None, cmd.key == None);
-    let mut key = cfg.api_key.expect("Valid API");
+    let mut key = cfg.api_key.unwrap_or_default();
     cmd.key.and_then(|k| Some(key = k)); // uses custom key when available
 
     let api = HolidayAPI::new(&key).expect("Error");
@@ -58,12 +57,15 @@ async fn handle_holidays_cmd(cmd: HolidaysArgs, cfg: MyConfig) {
     req.format(&cmd.format);
     cmd.pretty.then(|| req.pretty());
 
-    println!("{}", req.get_raw().await.expect("Error"));
+    match req.get_raw().await {
+        Ok(c) => println!("{}", c),
+        Err(c) => println!("{}", c),
+    }
 }
 
 async fn handle_countries_cmd(cmd: CountriesArgs, cfg: MyConfig) {
     no_key_provided(cfg.api_key == None, cmd.key == None);
-    let mut key = cfg.api_key.expect("Valid API");
+    let mut key = cfg.api_key.unwrap_or_default();
     cmd.key.and_then(|k| Some(key = k)); // uses custom key when available
 
     let api = HolidayAPI::new(&key).expect("Error");
@@ -75,9 +77,30 @@ async fn handle_countries_cmd(cmd: CountriesArgs, cfg: MyConfig) {
     req.format(&cmd.format);
     cmd.pretty.then(|| req.pretty());
 
-    println!("{}", req.get_raw().await.expect("Error"));
+    match req.get_raw().await {
+        Ok(c) => println!("{}", c),
+        Err(c) => println!("{}", c),
+    }
 }
 
+async fn handle_languages_cmd(cmd: LanguagesArgs, cfg: MyConfig) {
+    no_key_provided(cfg.api_key == None, cmd.key == None);
+    let mut key = cfg.api_key.unwrap_or_default();
+    cmd.key.and_then(|k| Some(key = k)); // uses custom key when available
+
+    let api = HolidayAPI::new(&key).expect("Error");
+    let mut req = api.languages();
+
+    cmd.language.and_then(|l| Some(req.language(&l)));
+    cmd.search.and_then(|s| Some(req.search(&s)));
+    req.format(&cmd.format);
+    cmd.pretty.then(|| req.pretty());
+
+    match req.get_raw().await {
+        Ok(c) => println!("{}", c),
+        Err(c) => println!("{}", c),
+    }
+}
 fn no_key_provided(key1: bool, key2: bool) {
     if key1 && key2 {
         println!("Please provide api key with argument -k, --key <KEY>");
