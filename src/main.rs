@@ -1,6 +1,6 @@
 mod args;
 
-use args::{CountriesArgs, HolidayArgs, LanguagesArgs, WorkdayArgs};
+use args::{CountriesArgs, HolidayArgs, LanguagesArgs, WorkdayArgs, WorkdaysArgs};
 use args::{HolidaysArgs, KeyArgs, SubCommand};
 use clap::Parser;
 use holidayapi_rust::HolidayAPI;
@@ -29,6 +29,7 @@ async fn main() {
         SubCommand::Country(cmd) => handle_countries_cmd(cmd, cfg).await,
         SubCommand::Languages(cmd) => handle_languages_cmd(cmd, cfg).await,
         SubCommand::Workday(cmd) => handle_workday_cmd(cmd, cfg).await,
+        SubCommand::Workdays(cmd) => handle_workdays_cmd(cmd, cfg).await,
     }
 }
 fn is_valid_key(key: &str) {
@@ -112,6 +113,23 @@ async fn handle_workday_cmd(cmd: WorkdayArgs, cfg: MyConfig) {
     let mut req = api.workday(&cmd.country, &cmd.start, cmd.days);
 
     req.format(&cmd.format);
+    cmd.pretty.then(|| req.pretty());
+
+    match req.get_raw().await {
+        Ok(c) => println!("{}", c),
+        Err(c) => println!("{}", c),
+    }
+}
+
+async fn handle_workdays_cmd(cmd: WorkdaysArgs, cfg: MyConfig) {
+    no_key_provided(cfg.api_key == None, cmd.key == None);
+    let mut key = cfg.api_key.unwrap_or_default();
+    cmd.key.and_then(|k| Some(key = k)); // uses custom key when available
+
+    let api = HolidayAPI::new(&key).expect("Error");
+    let mut req = api.workdays(&cmd.country, &cmd.start, &cmd.end);
+
+    // req.format(&cmd.format); waiting on next api update
     cmd.pretty.then(|| req.pretty());
 
     match req.get_raw().await {

@@ -307,9 +307,9 @@ dependencies = [
 
 [[package]]
 name = "holidayapi_rust"
-version = "0.1.3"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f9a268cfbedcc7b5d8c0059b89a4e97f401084d1e494ad01e0c55dbec735d49b"
+checksum = "3dfc0cecddadc924953e53fb14c7fb9bd1f0d0dd775c9cc36331a2bda83d34f0"
 dependencies = [
  "log",
  "regex",

@@ -15,6 +15,7 @@ pub enum SubCommand {
     Country(CountriesArgs),
     Languages(LanguagesArgs),
     Workday(WorkdayArgs),
+    Workdays(WorkdaysArgs),
 }
 
 #[derive(Debug, Args)]
@@ -146,6 +147,33 @@ pub struct WorkdayArgs {
     /// Number of working / business days to advance (positive integer) or retrogress (negative integer) from start.
     #[arg(short, long)]
     pub days: i32,
+
+    /// Response format (csv, json, php, tsv, yaml and xml).
+    #[arg(short, long, default_value_t = {"json".to_string()})]
+    pub format: String,
+
+    /// Prettifies results to be more human-readable.
+    #[arg(short, long, action = clap::ArgAction::SetTrue)]
+    pub pretty: bool,
+}
+
+#[derive(Debug, Args)]
+pub struct WorkdaysArgs {
+    /// A temporary API key, won't be save to config, and overrides config for this request.  
+    #[arg(short, long)]
+    pub key: Option<String>,
+
+    /// For countries, ISO 3166-1 alpha-2 or ISO 3166-1 alpha-3 format.
+    #[arg(short, long)]
+    pub country: String,
+
+    /// The date from which to begin counting.
+    #[arg(short, long, value_name = "YYYY-MM-DD")]
+    pub start: String,
+
+    /// The date to count until.
+    #[arg(short, long, value_name = "YYYY-MM-DD")]
+    pub end: String,
 
     /// Response format (csv, json, php, tsv, yaml and xml).
     #[arg(short, long, default_value_t = {"json".to_string()})]
