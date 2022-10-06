@@ -12,6 +12,9 @@ Based on [holidayapi-rust](https://github.com/rust-lang/); Depends on `clap` and
 ## Examples
 Setting up key
 ```console
+$ hapi key -h
+```
+```console
 Usage: holidayapi-cli key [OPTIONS]
 
 Options:
@@ -19,6 +22,9 @@ Options:
   -h, --help       Print help information
 ```
 Holidays endpoint
+```console
+$ hapi holidays -h
+```
 ```console
 Usage: hapi holiday [OPTIONS] --country <COUNTRY> --year <YEAR>
 
@@ -37,10 +43,13 @@ Options:
   -f, --format <FORMAT>      Response format (csv, json, php, tsv, yaml and xml) [default: json]
   -p, --pretty               Prettifies results to be more human-readable
   -h, --help                 Print help information (use `--help` for more detail)
-  ```
-  Countries endpoint
-  ```console
-  Usage: hapi country [OPTIONS]
+```
+Countries endpoint
+```console
+$ hapi countries -h
+```
+```console
+Usage: hapi country [OPTIONS]
 
 Options:
   -k, --key <KEY>          A temporary API key, won't be save to config, and overrides config for this request
@@ -50,4 +59,4 @@ Options:
   -f, --format <FORMAT>    Response format (csv, json, php, tsv, yaml and xml). [default: json]
   -p, --pretty             Prettifies results to be more human-readable
   -h, --help               Print help information
-  ```
+```
