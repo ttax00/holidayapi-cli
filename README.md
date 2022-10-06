@@ -10,13 +10,13 @@ Based on [holidayapi-rust](https://github.com/rust-lang/); Depends on `clap` and
 
 ## Examples
 Holidays endpoint
-```
+```console
 Usage: hapi holiday [OPTIONS] --country <COUNTRY> --year <YEAR>
 
 Options:
   -k, --key <KEY>            A temporary API key, won't be save to config, and overrides config for this request
-  -c, --country <COUNTRY>    For countries, ISO 3166-1 alpha-2 or ISO 3166-1 alpha-3 format
-  -y, --year <YEAR>          year in ISO 8601 format
+  -c, --countries <COUNTRY>    For countries, ISO 3166-1 alpha-2 or ISO 3166-1 alpha-3 format
+  -y, --years <YEAR>          year in ISO 8601 format
   -m, --month <1-12>         1 or 2 digit month (1-12)
   -d, --day <1-31>           1 or 2 digit day (1-31 depending on the month)
       --public               Return only public holidays
@@ -30,7 +30,7 @@ Options:
   -h, --help                 Print help information (use `--help` for more detail)
   ```
   Countries endpoint
-  ```
+  ```console
   Usage: hapi country [OPTIONS]
 
 Options:

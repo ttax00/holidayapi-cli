@@ -25,8 +25,8 @@ async fn main() {
 
     match args.command {
         SubCommand::Key(cmd) => handle_key_cmd(cmd, cfg),
-        SubCommand::Holiday(cmd) => handle_holidays_cmd(cmd, cfg).await,
-        SubCommand::Country(cmd) => handle_countries_cmd(cmd, cfg).await,
+        SubCommand::Holidays(cmd) => handle_holidays_cmd(cmd, cfg).await,
+        SubCommand::Countries(cmd) => handle_countries_cmd(cmd, cfg).await,
         SubCommand::Languages(cmd) => handle_languages_cmd(cmd, cfg).await,
         SubCommand::Workday(cmd) => handle_workday_cmd(cmd, cfg).await,
         SubCommand::Workdays(cmd) => handle_workdays_cmd(cmd, cfg).await,

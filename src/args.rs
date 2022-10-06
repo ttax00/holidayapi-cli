@@ -11,8 +11,8 @@ pub struct HolidayArgs {
 pub enum SubCommand {
     /// set api key to provided or response with current key.
     Key(KeyArgs),
-    Holiday(HolidaysArgs),
-    Country(CountriesArgs),
+    Holidays(HolidaysArgs),
+    Countries(CountriesArgs),
     Languages(LanguagesArgs),
     Workday(WorkdayArgs),
     Workdays(WorkdaysArgs),
