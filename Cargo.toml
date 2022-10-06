@@ -1,5 +1,5 @@
 [package]
-name = "holidayapi-cli"
+name = "hapi"
 version = "0.1.0"
 edition = "2021"
 description = "A simple command line interface to query Holiday API"
