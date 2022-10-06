@@ -20,6 +20,7 @@ pub enum SubCommand {
 
 #[derive(Debug, Args)]
 pub struct KeyArgs {
+    /// Provide a key to save to config
     #[arg(short, long, value_name = "key", default_value = None)]
     pub key: Option<String>,
 }
@@ -72,7 +73,7 @@ pub struct HolidaysArgs {
     pub upcoming: bool,
 
     /// Response format (csv, json, php, tsv, yaml and xml).
-    #[arg(short, long, default_value_t = {"json".to_string()})]
+    #[arg(short, long, default_value_t = {"csv".to_string()})]
     pub format: String,
 
     /// Prettifies results to be more human-readable.
@@ -99,7 +100,7 @@ pub struct CountriesArgs {
     pub public: bool,
 
     /// Response format (csv, json, php, tsv, yaml and xml).
-    #[arg(short, long, default_value_t = {"json".to_string()})]
+    #[arg(short, long, default_value_t = {"csv".to_string()})]
     pub format: String,
 
     /// Prettifies results to be more human-readable.
@@ -122,7 +123,7 @@ pub struct LanguagesArgs {
     pub search: Option<String>,
 
     /// Response format (csv, json, php, tsv, yaml and xml).
-    #[arg(short, long, default_value_t = {"json".to_string()})]
+    #[arg(short, long, default_value_t = {"csv".to_string()})]
     pub format: String,
 
     /// Prettifies results to be more human-readable.
@@ -149,7 +150,7 @@ pub struct WorkdayArgs {
     pub days: i32,
 
     /// Response format (csv, json, php, tsv, yaml and xml).
-    #[arg(short, long, default_value_t = {"json".to_string()})]
+    #[arg(short, long, default_value_t = {"csv".to_string()})]
     pub format: String,
 
     /// Prettifies results to be more human-readable.
@@ -176,7 +177,7 @@ pub struct WorkdaysArgs {
     pub end: String,
 
     /// Response format (csv, json, php, tsv, yaml and xml).
-    #[arg(short, long, default_value_t = {"json".to_string()})]
+    #[arg(short, long, default_value_t = {"csv".to_string()})]
     pub format: String,
 
     /// Prettifies results to be more human-readable.
